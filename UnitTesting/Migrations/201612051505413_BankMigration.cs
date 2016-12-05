@@ -37,7 +37,7 @@ namespace UnitTesting.Migrations
                         AccountId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: true)
+                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: false)
                 .Index(t => t.AccountId);
             
             CreateTable(
