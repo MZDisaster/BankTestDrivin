@@ -13,6 +13,6 @@ namespace UnitTesting.Models
 
         public string Name { get; set; }
 
-        public List<Account> BankAccounts { get; set; }
+        public virtual List<Account> BankAccounts { get; set; }
     }
 }

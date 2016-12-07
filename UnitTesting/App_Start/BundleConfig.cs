@@ -31,14 +31,14 @@ namespace UnitTesting
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-*"));
-
+            /*
             bundles.Add(new ScriptBundle("~/bundles/garage").Include(
                 "~/Garage/*.js",
                 "~/Garage/services/*.js",
                 "~/Garage/directives/*.js",
                 "~/Garage/filters/*.js",
                 "~/Garage/controllers/*.js"
-                ));
+                ));*/
         }
     }
 }

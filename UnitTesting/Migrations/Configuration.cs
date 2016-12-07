@@ -4,6 +4,7 @@ namespace UnitTesting.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using UnitTesting.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<UnitTesting.DataAccessLayer.BankContext>
     {
@@ -59,6 +60,7 @@ namespace UnitTesting.Migrations
                 new Vehicle { Id = 8, Color = "Black", RegNr = "DFG349", Owner = Owners[7], OwnerId = Owners[7].Id, Type = VehicleTypes[1], TypeId = VehicleTypes[1].Id },
                 new Vehicle { Id = 9, Color = "Pink", RegNr = "YKL469", Owner = Owners[7], OwnerId = Owners[7].Id, Type = VehicleTypes[2], TypeId = VehicleTypes[2].Id }
             };
+             * 
 
             context.VehicleTypes.AddOrUpdate(VehicleTypes);
             context.SaveChanges();
@@ -67,6 +69,9 @@ namespace UnitTesting.Migrations
             context.SaveChanges();
 
             context.Vehicles.AddOrUpdate(Vehicles);
+            context.SaveChanges();
+
+            context.Clients.AddOrUpdate(new Client() { Id = 2, Name = "Tester McTest" });
             context.SaveChanges();*/
         }
     }
