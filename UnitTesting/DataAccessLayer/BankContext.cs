@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-using UnitTesting.Models;
+using BankSystem.Models;
 
-namespace UnitTesting.DataAccessLayer
+namespace BankSystem.DataAccessLayer
 {
-    public class BankContext : DbContext
+    public class BankContext : DbContext, IBankContext
     {
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Client> Clients { get; set; }
@@ -19,5 +19,6 @@ namespace UnitTesting.DataAccessLayer
         {
 
         }
+
     }
 }

@@ -1,4 +1,4 @@
-namespace UnitTesting.Migrations
+namespace BankSystem.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -13,6 +13,7 @@ namespace UnitTesting.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Balance = c.Double(nullable: false),
+                        Active = c.Boolean(nullable: false),
                         ClientId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -24,7 +25,8 @@ namespace UnitTesting.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(nullable: false),
+                        Active = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -37,7 +39,7 @@ namespace UnitTesting.Migrations
                         AccountId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: false)
+                .ForeignKey("dbo.Accounts", t => t.AccountId, cascadeDelete: true)
                 .Index(t => t.AccountId);
             
             CreateTable(
@@ -45,13 +47,13 @@ namespace UnitTesting.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Amout = c.Double(nullable: false),
+                        Amount = c.Double(nullable: false),
                         FromId = c.Int(nullable: false),
                         ToId = c.Int(nullable: false),
                         Account_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Accounts", t => t.FromId, cascadeDelete: false)
+                .ForeignKey("dbo.Accounts", t => t.FromId, cascadeDelete: true)
                 .ForeignKey("dbo.Accounts", t => t.ToId, cascadeDelete: false)
                 .ForeignKey("dbo.Accounts", t => t.Account_Id)
                 .Index(t => t.FromId)

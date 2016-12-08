@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using UnitTesting.DataAccessLayer;
-using UnitTesting.Repository;
+using BankSystem.DataAccessLayer;
+using BankSystem.Repository;
 
-namespace UnitTesting.Models
+namespace BankSystem.Models
 {
     public class Deposit
     {

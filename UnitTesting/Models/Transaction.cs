@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace UnitTesting.Models
+namespace BankSystem.Models
 {
     public class Transaction
     {
@@ -13,7 +13,7 @@ namespace UnitTesting.Models
         public int Id { get; set; }
 
         [Required]
-        public double Amout { get; set; }
+        public double Amount { get; set; }
 
         [Required]
         [ForeignKey("From")]

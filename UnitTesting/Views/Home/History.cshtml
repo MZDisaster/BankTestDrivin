@@ -1,0 +1,86 @@
+﻿@model BankSystem.ViewModels.HistoryModel
+
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>History</h2>
+<p>
+    @Html.ActionLink("Back to List", "Accounts", new { id = ViewBag.ClientId }, new { @class = "btn btn-default" })
+</p>
+Transactions
+<table class="table" id="TransactionsTable">
+    <tbody>
+        <tr>
+            <th>Transaction Id</th>
+            <th>Amount</th>
+            <th>From Account Id</th>
+            <th>To Account Id</th>
+        </tr>
+    </tbody>
+    <thead>
+        @foreach (var item in Model.Transactions)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Amount</td>
+                <td>@item.FromId</td>
+                <td>@item.ToId</td>
+            </tr>
+        }
+    </thead>
+</table>
+
+Deposists
+<table class="table" id="DepositsTable">
+    <thead>
+        <tr>
+            <th>Deposit Id</th>
+            <th>Amount</th>
+            <th>Account Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Deposits)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Amount
+                </td>
+                <td>
+                    @item.AccountId
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+Withdraws
+<table class="table" id="WithdrawsTable">
+    <thead>
+        <tr>
+            <th>Withdraw Id</th>
+            <th>Amount</th>
+            <th>Account Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Withdraws)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Amount
+                </td>
+                <td>
+                    @item.AccountId
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

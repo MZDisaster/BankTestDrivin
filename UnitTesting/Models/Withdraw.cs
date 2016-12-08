@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace UnitTesting.Models
+namespace BankSystem.Models
 {
     public class Withdraw
     {

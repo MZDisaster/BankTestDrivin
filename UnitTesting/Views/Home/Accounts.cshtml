@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UnitTesting.Models.Account>
+﻿@model IEnumerable<BankSystem.Models.Account>
 
 @{
     ViewBag.Title = "Accounts";
@@ -7,33 +7,39 @@
 <h2>Accounts</h2>
 
 <p>
-    @Html.ActionLink("Create Account", "CreateAccount", new { id = ViewBag.id })
+    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create Account", "CreateAccount", new { id = ViewBag.id }, new { @class = "btn btn-default" })
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Client.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Balance)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Client.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Balance)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+                <td>
+                    @Html.ActionLink("Deposit", "Deposit", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Withdraw", "Withdraw", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Transaction", "Transaction", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("History", "History", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

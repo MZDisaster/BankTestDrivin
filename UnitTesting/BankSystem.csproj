@@ -120,12 +120,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="DataAccessLayer\BankContext.cs" />
+    <Compile Include="DataAccessLayer\IBankContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612051505413_BankMigration.cs" />
-    <Compile Include="Migrations\201612051505413_BankMigration.Designer.cs">
-      <DependentUpon>201612051505413_BankMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201612081454471_BankMigration.cs" />
+    <Compile Include="Migrations\201612081454471_BankMigration.Designer.cs">
+      <DependentUpon>201612081454471_BankMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Repository\BankRepo.cs" />
     <Compile Include="Repository\WorkingBankRepo.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ViewModels\HistoryModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BankDB.mdf" />
@@ -190,6 +192,10 @@
     <Content Include="Views\Home\Accounts.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\CreateClient.cshtml" />
+    <Content Include="Views\Home\Deposit.cshtml" />
+    <Content Include="Views\Home\Withdraw.cshtml" />
+    <Content Include="Views\Home\Transaction.cshtml" />
+    <Content Include="Views\Home\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
@@ -210,8 +216,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612051505413_BankMigration.resx">
-      <DependentUpon>201612051505413_BankMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612081454471_BankMigration.resx">
+      <DependentUpon>201612081454471_BankMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

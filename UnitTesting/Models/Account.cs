@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace UnitTesting.Models
+namespace BankSystem.Models
 {
     public class Account
     {
@@ -13,6 +13,8 @@ namespace UnitTesting.Models
         public int Id { get; set; }
 
         public double Balance { get; set; }
+
+        public bool Active { get; set; }
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }
@@ -24,5 +26,10 @@ namespace UnitTesting.Models
         public virtual List<Deposit> DepositHistory { get; set; }
 
         public virtual List<Withdraw> WithdrawHistory { get; set; }
+
+        public Account()
+        {
+            this.Active = true;
+        }
     }
 }

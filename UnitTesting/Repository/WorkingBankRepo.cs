@@ -2,91 +2,152 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using UnitTesting.DataAccessLayer;
-using UnitTesting.Models;
+using BankSystem.DataAccessLayer;
+using BankSystem.Models;
+using BankSystem.ViewModels;
 
-namespace UnitTesting.Repository
+namespace BankSystem.Repository
 {
     public class WorkingBankRepo : BankRepo
     {
-        private BankContext GContext = new BankContext();
+        private IBankContext BContext;
+
+        public WorkingBankRepo()
+        {
+            this.BContext = new BankContext();
+        }
+
+        public WorkingBankRepo(IBankContext context)
+        {
+            this.BContext = context;
+        }
 
         public IEnumerable<Client> GetClients()
         {
-            return GContext.Set<Client>().Include("BankAccounts").ToList();
+            return BContext.Clients.Include("BankAccounts").Where(c => c.Active == true).ToList();
         }
 
-        IEnumerable<Account> BankRepo.GetAccounts(int Id)
+        public IEnumerable<Account> GetAccounts(int Id)
         {
-            return GContext.Accounts.Where(a => a.ClientId == Id).ToList();
+            return BContext.Accounts.Where(a => a.ClientId == Id && a.Active == true).ToList();
         }
 
-        double BankRepo.GetBalance(int Id)
+        public double GetBalance(int Id)
         {
-            return GContext.Accounts.Single(a => a.Id == Id).Balance;
+            return BContext.Accounts.Single(a => a.Id == Id).Balance;
         }
 
-        IEnumerable<Transaction> BankRepo.GetTransActionHistory(int Id)
+        public IEnumerable<Transaction> GetTransActionHistory(int Id)
         {
-            return GContext.Transactions.Where(t => t.From.Id == Id || t.To.Id == Id).ToList();
+            return BContext.Transactions.Where(t => t.FromId == Id || t.ToId == Id);
         }
 
-        void BankRepo.Deposit(int Id, double Amount)
+        public void Deposit(Deposit deposit)
         {
-            GContext.Deposists.Add(new Deposit() { AccountId = Id, Amount = Amount });
-            GContext.Accounts.Single(a => a.Id == Id).Balance += Amount;
-            GContext.SaveChanges();
+            BContext.Deposists.Add(deposit);
+            BContext.Accounts.Single(a => a.Id == deposit.AccountId).Balance += deposit.Amount;
+            BContext.SaveChanges();
         }
 
-        void BankRepo.Withdraw(int Id, double Amount)
+        public void Withdraw(Withdraw withdraw)
         {
-            GContext.Withdraws.Add(new Withdraw() { AccountId = Id, Amount = Amount });
-            GContext.Accounts.Single(a => a.Id == Id).Balance -= Amount;
-            GContext.SaveChanges();
+            if (BContext.Accounts.Single(a => a.Id == withdraw.AccountId).Balance >= withdraw.Amount)
+            {
+                BContext.Withdraws.Add(withdraw);
+                BContext.Accounts.Single(a => a.Id == withdraw.AccountId).Balance -= withdraw.Amount;
+                BContext.SaveChanges();
+            }
         }
 
-        void BankRepo.Transfer(int fromId, int toId, double amount)
+        public void Transaction(Transaction transaction)
         {
-            GContext.Transactions.Add(new Transaction() { FromId = fromId, ToId = toId, Amout = amount });
-            GContext.Accounts.Single(a => a.Id == fromId).Balance -= amount;
-            GContext.Accounts.Single(a => a.Id == toId).Balance += amount;
-            GContext.SaveChanges();
+            if (BContext.Accounts.Single(a => a.Id == transaction.FromId).Balance >= transaction.Amount)
+            {
+                if (BContext.Accounts.Where(a => a.Id == transaction.ToId).Count() > 0)
+                {
+                    BContext.Transactions.Add(transaction);
+                    BContext.Accounts.Single(a => a.Id == transaction.FromId).Balance -= transaction.Amount;
+                    BContext.Accounts.Single(a => a.Id == transaction.ToId).Balance += transaction.Amount;
+                    BContext.SaveChanges();
+                }
+            }
         }
 
 
         public Account GetAccount(int Id)
         {
-            return GContext.Accounts.Find(Id);
+            return BContext.Accounts.Find(Id);
         }
 
 
         public void AddAccount(Account account)
         {
-            GContext.Accounts.Add(account);
-            GContext.SaveChanges();
+            BContext.Accounts.Add(account);
+            BContext.SaveChanges();
         }
 
 
 
         public void EditAccount(Account account)
         {
-            Account oldAccount = GContext.Accounts.Find(account.Id);
+            Account oldAccount = BContext.Accounts.Find(account.Id);
             oldAccount = account;
-            GContext.SaveChanges();
+            BContext.SaveChanges();
         }
 
 
         public void RemoveAccount(Account account)
         {
-            GContext.Accounts.Remove(account);
-            GContext.SaveChanges();
+            BContext.Accounts.Find(account.Id).Active = false;
+            BContext.SaveChanges();
         }
 
 
         public void AddClient(Client client)
         {
-            GContext.Clients.Add(client);
-            GContext.SaveChanges();
+            BContext.Clients.Add(client);
+            BContext.SaveChanges();
+        }
+
+
+        public HistoryModel History(int Id)
+        {
+            HistoryModel history = new HistoryModel()
+            {
+                Deposits = BContext.Deposists.Where(d => d.AccountId == Id).ToList(),
+                Withdraws = BContext.Withdraws.Where(w => w.AccountId == Id).ToList(),
+                Transactions = BContext.Transactions.Where(t => t.FromId == Id || t.ToId == Id).ToList()
+            };
+
+            return history;
+        }
+
+
+        public int GetClientId(Transaction transaction)
+        {
+            return BContext.Accounts.First(a => a.Id == transaction.FromId).ClientId;
+        }
+
+        public int GetClientId(Withdraw withdraw)
+        {
+            return BContext.Accounts.First(a => a.Id == withdraw.AccountId).ClientId;
+        }
+
+        public int GetClientId(Deposit deposit)
+        {
+            return BContext.Accounts.First(a => a.Id == deposit.AccountId).ClientId;
+        }
+
+        public int GetClientId(int AccountId)
+        {
+            return BContext.Accounts.First(a => a.Id == AccountId).ClientId;
+        }
+
+
+        public void RemoveClient(int Id)
+        {
+            BContext.Clients.Find(Id).Active = false;
+            BContext.SaveChanges();
         }
     }
 }

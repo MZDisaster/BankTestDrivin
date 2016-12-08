@@ -6,11 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using UnitTesting.DataAccessLayer;
-using UnitTesting.Models;
-using UnitTesting.Repository;
+using BankSystem.DataAccessLayer;
+using BankSystem.Models;
+using BankSystem.Repository;
+using BankSystem.ViewModels;
 
-namespace UnitTesting.Views.Home
+namespace BankSystem.Controllers
 {
     public class HomeController : Controller
     {
@@ -26,7 +27,7 @@ namespace UnitTesting.Views.Home
         }
 
         // GET: Clients
-        public ActionResult Index()
+        public ViewResult Index()
         {
             var clients = GRepo.GetClients();
             return View(clients);
@@ -71,7 +72,7 @@ namespace UnitTesting.Views.Home
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateClient([Bind(Include = "Id,Balance,ClientId")] Client client)
+        public ActionResult CreateClient([Bind(Include = "Id,Name")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +84,7 @@ namespace UnitTesting.Views.Home
         }
 
         // GET: Accounts/Create
-        public ActionResult CreateAccount(int? id)
+        public RedirectToRouteResult CreateAccount(int? id)
         {
             if (id == null)
                 return RedirectToAction("Index");
@@ -137,6 +138,7 @@ namespace UnitTesting.Views.Home
             {
                 return HttpNotFound();
             }
+            ViewBag.ClientId = GRepo.GetClientId((int)id);
             return View(account);
         }
 
@@ -147,6 +149,90 @@ namespace UnitTesting.Views.Home
         {
             Account account = GRepo.GetAccount((int)id);
             GRepo.RemoveAccount(account);
+            return RedirectToAction("Accounts", new { id = GRepo.GetClientId((int)id) });
+        }
+
+        public ActionResult Deposit(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("Index");
+
+            ViewBag.AccountId = id;
+            ViewBag.ClientId = GRepo.GetClientId((int)id);
+            return View();
+        }
+
+        [HttpPost, ActionName("Deposit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deposit([Bind(Include = "Id,Amount,AccountId")] Deposit deposit)
+        {
+            if(ModelState.IsValid)
+            {
+                GRepo.Deposit(deposit);
+            }
+            ViewBag.ClientId = GRepo.GetClientId(deposit);
+            return RedirectToAction("Accounts", new { id = GRepo.GetClientId(deposit) });
+        }
+
+        public ActionResult Withdraw(int? id)
+        {
+            if(id == null)
+                return RedirectToAction("Index");
+
+            ViewBag.AccountId = id;
+            ViewBag.ClientId = GRepo.GetClientId((int)id);
+            return View();
+        }
+
+        [HttpPost, ActionName("Withdraw")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Withdraw([Bind(Include = "Id,Amount,AccountId")] Withdraw withdraw)
+        {
+            if (ModelState.IsValid)
+            {
+                GRepo.Withdraw(withdraw);
+            }
+            ViewBag.ClientId = GRepo.GetClientId(withdraw);
+            return RedirectToAction("Accounts", new { id = GRepo.GetClientId(withdraw) });
+        }
+
+        public ActionResult Transaction(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("Index");
+
+            ViewBag.FromId = id;
+            ViewBag.ClientId = GRepo.GetClientId((int)id);
+            return View();
+        }
+
+        [HttpPost, ActionName("Transaction")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Transaction([Bind(Include = "Id,Amount,FromId,ToId")] Transaction transaction)
+        {
+            if (ModelState.IsValid)
+            {
+                GRepo.Transaction(transaction);
+            }
+            ViewBag.ClientId = GRepo.GetClientId(transaction);
+            return RedirectToAction("Accounts", new { id = GRepo.GetClientId(transaction) });
+        }
+
+        public ActionResult History(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("Index");
+
+            HistoryModel history = GRepo.History((int)id);
+            ViewBag.ClientId = GRepo.GetClientId((int)id);
+            return View(history);
+        }
+
+        public ActionResult DeleteClient(int? id)
+        {
+            if (id != null)
+                GRepo.RemoveClient((int)id);
+
             return RedirectToAction("Index");
         }
 
