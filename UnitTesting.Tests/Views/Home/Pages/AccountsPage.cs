@@ -17,24 +17,43 @@ namespace BankSystem.Tests.Views.Home.Pages
             var TRs = Find.Element(By.TagName("tbody")).FindElements(By.TagName("tr"));
 
             List<Account> accountList = new List<Account>();
+            int clientId = int.Parse(
+                Find.Element(
+                    By.LinkText("Create Account")).GetAttribute("href").Substring(
+                        Find.Element(
+                            By.LinkText("Create Account")).GetAttribute("href").LastIndexOf('/') + 1));
 
             foreach (var tr in TRs)
             {
                 var TDs = tr.FindElements(By.TagName("td"));
 
-                var link = TDs[1].FindElement(By.TagName("a")).GetAttribute("href");
-                int routePosInLink = link.LastIndexOf('/') + 1;
-                int id = int.Parse(link.Substring(routePosInLink));
-
-                accountList.Add(new Account
+                if (TDs.Count() > 0)
                 {
-                    Id = 1,
-                    ClientId = 1,
-                    Balance = 500
-                });
+                    var link = TDs.Last().FindElement(By.TagName("a")).GetAttribute("href");
+                    int routePosInLink = link.LastIndexOf('/') + 1;
+                    int id = int.Parse(link.Substring(routePosInLink));
+
+
+                    accountList.Add(new Account
+                    {
+                        Id = id,
+                        ClientId = clientId,
+                        Balance = int.Parse(TDs[1].Text)
+                    });
+                }
             }
 
             return accountList;
+        }
+
+        public AccountsPage CreateAccount()
+        {
+            return Navigate.To<AccountsPage>(By.LinkText("Create Account"));
+        }
+
+        public DeleteAccountPage DeleteAccount(int id)
+        {
+            return Navigate.To<DeleteAccountPage>(By.CssSelector("a[href='/Home/Delete/" + id + "']"));
         }
 
         public DepositPage gotoDeposit(int id)
@@ -55,11 +74,6 @@ namespace BankSystem.Tests.Views.Home.Pages
         public HistoryPage gotoHistory(int id)
         {
             return Navigate.To<HistoryPage>(By.CssSelector("a[href='/Home/History/" + id + "']"));
-        }
-
-        public void DeleteAccount(int id)
-        {
-            Find.Element(By.CssSelector("a[href='/Home/Delete/" + id + "']")).Click();
         }
     }
 }

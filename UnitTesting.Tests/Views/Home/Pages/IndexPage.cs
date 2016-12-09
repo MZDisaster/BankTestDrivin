@@ -21,7 +21,7 @@ namespace BankSystem.Tests.Views.Home.Pages
             {
                 var TDs = tr.FindElements(By.TagName("td"));
 
-                var link = TDs[1].FindElement(By.TagName("a")).GetAttribute("href");
+                var link = TDs.Last().FindElement(By.TagName("a")).GetAttribute("href");
                 int routePosInLink = link.LastIndexOf('/') + 1;
                 int id = int.Parse(link.Substring(routePosInLink));
 
@@ -43,6 +43,11 @@ namespace BankSystem.Tests.Views.Home.Pages
         public AccountsPage gotoAccountsPage(int id)
         {
             return Navigate.To<AccountsPage>(By.CssSelector("a[href='/Home/Accounts/"+ id + "']"));
+        }
+
+        public IndexPage deleteAccount(int id)
+        {
+            return Navigate.To<IndexPage>(By.CssSelector("a[href='/Home/DeleteClient/" + id + "']"));
         }
     }
 }
