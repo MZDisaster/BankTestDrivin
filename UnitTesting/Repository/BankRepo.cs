@@ -11,6 +11,7 @@ namespace BankSystem.Repository
     public interface BankRepo
     {
         IEnumerable<Client> GetClients();
+        Client GetClient(int Id);
         int GetClientId(Transaction transaction);
         int GetClientId(Withdraw withdraw);
         int GetClientId(Deposit deposit);

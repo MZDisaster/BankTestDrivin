@@ -38,9 +38,8 @@ namespace BankSystem.Controllers
         {
             if(id != null)
             {
-                var accounts = GRepo.GetAccounts((int)id);
-                ViewBag.id = id;
-                return View(accounts.ToList());
+                var client = GRepo.GetClient((int)id);
+                return View(client);
             }
             return RedirectToAction("Index");
             

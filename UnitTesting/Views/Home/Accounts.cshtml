@@ -1,50 +1,54 @@
-﻿@model IEnumerable<BankSystem.Models.Account>
+﻿@model BankSystem.Models.Client
 
 @{
     ViewBag.Title = "Accounts";
 }
 
-<h2>Accounts</h2>
+<h2>@Model.Name</h2>
+<h3>Accounts</h3>
 
 <p>
     @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-default" })
-    @Html.ActionLink("Create Account", "CreateAccount", new { id = ViewBag.id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create Account", "CreateAccount", new { id = Model.Id }, new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Balance)
+                Balance
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.isLocked)
+                Is Locked
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.BankAccounts)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Balance)
-                </td>
-                <th>@Html.DisplayFor(modelItem => item.isLocked)</th>
-                <td>
-                    @Html.ActionLink("Deposit", "Deposit", new { id = item.Id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Withdraw", "Withdraw", new { id = item.Id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Lock Withdraw", "Lock", new { id = item.Id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Transaction", "Transaction", new { id = item.Id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("History", "History", new { id = item.Id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                </td>
-            </tr>
+            if (item.Active)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <th>@Html.DisplayFor(modelItem => item.isLocked)</th>
+                    <td>
+                        @Html.ActionLink("Deposit", "Deposit", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Withdraw", "Withdraw", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Lock Withdraw", "Lock", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Transaction", "Transaction", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("History", "History", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

@@ -75,8 +75,10 @@ namespace BankSystem.Tests.Views.Home
             var indexPage = BrowserHost.Instance.NavigateToInitialPage<HomeController, IndexPage>(x => x.Index());
 
             Client newClientFromIndexList = indexPage.Table().Last();
-
+            
             var accountPage = indexPage.gotoAccountsPage(newClientFromIndexList.Id);
+
+            //Client client = accountPage.getClient();
 
             Assert.IsNotNull(accountPage.Table());
         }

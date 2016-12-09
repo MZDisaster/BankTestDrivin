@@ -27,6 +27,11 @@ namespace BankSystem.Repository
             return BContext.Clients.Include("BankAccounts").Where(c => c.Active == true).ToList();
         }
 
+        public Client GetClient(int Id)
+        {
+            return BContext.Clients.Include("BankAccounts").Single(c => c.Active == true && c.Id == Id);
+        }
+
         public IEnumerable<Account> GetAccounts(int Id)
         {
             return BContext.Accounts.Where(a => a.ClientId == Id && a.Active == true).ToList();
