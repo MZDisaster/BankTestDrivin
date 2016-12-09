@@ -82,7 +82,30 @@ namespace BankSystem.Tests.Views.Home
         }
 
         [TestMethod]
-        public void e_Deposit_should_add_balance_to_account()
+        public void e_Lock_should_lock_account()
+        {
+            var browser = BrowserHost.Instance.Application.Browser;
+            var indexPage = BrowserHost.Instance.NavigateToInitialPage<HomeController, IndexPage>(x => x.Index());
+
+            Client newClientFromIndexList = indexPage.Table().Last();
+
+            var accountPage = indexPage.gotoAccountsPage(newClientFromIndexList.Id);
+
+            var table = accountPage.Table();
+            Account newAccountFromAccountPage = table.Last();
+            accountPage = accountPage.LockAccount(newAccountFromAccountPage.Id);
+
+            var withdrawPage = accountPage.gotoWithdraw(newAccountFromAccountPage.Id);
+            Assert.IsTrue(withdrawPage.Title.Contains("Accounts"));
+
+            accountPage.LockAccount(newAccountFromAccountPage.Id);
+            withdrawPage = accountPage.gotoWithdraw(newAccountFromAccountPage.Id);
+
+            Assert.IsTrue(withdrawPage.Title.Contains("Withdraw"));
+        }
+
+        [TestMethod]
+        public void f_Deposit_should_add_balance_to_account()
         {
             var browser = BrowserHost.Instance.Application.Browser;
             var indexPage = BrowserHost.Instance.NavigateToInitialPage<HomeController, IndexPage>(x => x.Index());
@@ -111,7 +134,7 @@ namespace BankSystem.Tests.Views.Home
         }
 
         [TestMethod]
-        public void f_Transaction_should_send_money()
+        public void g_Transaction_should_send_money()
         {
             var browser = BrowserHost.Instance.Application.Browser;
             var indexPage = BrowserHost.Instance.NavigateToInitialPage<HomeController, IndexPage>(x => x.Index());
@@ -148,7 +171,7 @@ namespace BankSystem.Tests.Views.Home
         }
 
         [TestMethod]
-        public void g_Withdraw_should_withdraw_money()
+        public void h_Withdraw_should_withdraw_money()
         {
             var browser = BrowserHost.Instance.Application.Browser;
             var indexPage = BrowserHost.Instance.NavigateToInitialPage<HomeController, IndexPage>(x => x.Index());
@@ -178,7 +201,7 @@ namespace BankSystem.Tests.Views.Home
         }
 
         [TestMethod]
-        public void h_Delete_should_delete_accounts()
+        public void i_Delete_should_delete_accounts()
         {
             var browser = BrowserHost.Instance.Application.Browser;
             var indexPage = BrowserHost.Instance.NavigateToInitialPage<HomeController, IndexPage>(x => x.Index());
@@ -202,7 +225,7 @@ namespace BankSystem.Tests.Views.Home
         }
 
         [TestMethod]
-        public void i_DeleteClient_should_delete_client()
+        public void j_DeleteClient_should_delete_client()
         {
             var browser = BrowserHost.Instance.Application.Browser;
             var indexPage = BrowserHost.Instance.NavigateToInitialPage<HomeController, IndexPage>(x => x.Index());

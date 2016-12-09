@@ -51,6 +51,11 @@ namespace BankSystem.Tests.Views.Home.Pages
             return Navigate.To<AccountsPage>(By.LinkText("Create Account"));
         }
 
+        public AccountsPage LockAccount(int id)
+        {
+            return Navigate.To<AccountsPage>(By.CssSelector("a[href='/Home/Lock/" + id + "']"));
+        }
+
         public DeleteAccountPage DeleteAccount(int id)
         {
             return Navigate.To<DeleteAccountPage>(By.CssSelector("a[href='/Home/Delete/" + id + "']"));

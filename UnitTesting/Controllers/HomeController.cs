@@ -176,8 +176,11 @@ namespace BankSystem.Controllers
 
         public ActionResult Withdraw(int? id)
         {
-            if(id == null)
+            if (id == null)
                 return RedirectToAction("Index");
+
+            if(GRepo.GetAccount((int)id).isLocked)
+                return RedirectToAction("Accounts", new { id = GRepo.GetClientId((int)id) });
 
             ViewBag.AccountId = id;
             ViewBag.ClientId = GRepo.GetClientId((int)id);
@@ -248,6 +251,14 @@ namespace BankSystem.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Lock(int? id)
+        {
+            if (id != null)
+                GRepo.LockUnlockAccount((int)id);
+
+            return RedirectToAction("Accounts", new { id = GRepo.GetClientId((int)id) });
         }
     }
 }

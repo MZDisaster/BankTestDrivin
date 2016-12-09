@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<OrderedTest name="OrderedTest1" storage="c:\users\elev\source\repos\unittesting\unittesting.tests\orderedtest1.orderedtest" id="c3366fef-2eeb-478c-b17b-4a81b6fb0110" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<OrderedTest name="repositorytest" storage="c:\users\elev\source\repos\unittesting\unittesting.tests\repositorytest.orderedtest" id="c3366fef-2eeb-478c-b17b-4a81b6fb0110" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <TestLinks>
     <TestLink id="bff086e2-d4fa-bee2-e402-6ed1ce19b6fe" name="GetClients_should_return_clients" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="1b9db44d-e968-5db1-92a6-22e55d5d959f" name="GetAccounts_should_return_accounts" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -14,5 +14,6 @@
     <TestLink id="6d758bbe-13eb-fb91-53e9-356e74daceeb" name="AddClient_should_create_new_client" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="aed81771-18e9-0522-d0e7-3e60ba0dee98" name="History_should_return_HistoryModel" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="1de6d76a-8a59-ad1c-97e6-2064d43b560a" name="GetClientId_should_return_int_id" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="8e0f9f8b-05c2-6a03-a941-29d69766169b" name="lock_should_lock_withdraw" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   </TestLinks>
 </OrderedTest>

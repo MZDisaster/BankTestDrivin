@@ -156,6 +156,19 @@ namespace BankSystem.Tests.Controllers
         }
 
         [TestMethod]
+        public void Lock_locks_account_history()
+        {
+            Account account = new Account { ClientId = 1 };
+            var Repo = Mock.Create<BankRepo>();
+            Mock.Arrange(() => Repo.LockUnlockAccount(1)).DoInstead(() => { account.isLocked = !account.isLocked; });
+
+            HomeController controller = new HomeController(Repo);
+            controller.Lock(1);
+
+            Assert.IsTrue(account.isLocked);
+        }
+
+        [TestMethod]
         public void About()
         {
             // Arrange

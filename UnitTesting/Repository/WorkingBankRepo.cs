@@ -51,11 +51,14 @@ namespace BankSystem.Repository
 
         public void Withdraw(Withdraw withdraw)
         {
-            if (BContext.Accounts.Single(a => a.Id == withdraw.AccountId).Balance >= withdraw.Amount)
+            if(!BContext.Accounts.Find(withdraw.AccountId).isLocked)
             {
-                BContext.Withdraws.Add(withdraw);
-                BContext.Accounts.Single(a => a.Id == withdraw.AccountId).Balance -= withdraw.Amount;
-                BContext.SaveChanges();
+                if (BContext.Accounts.Single(a => a.Id == withdraw.AccountId).Balance >= withdraw.Amount)
+                {
+                    BContext.Withdraws.Add(withdraw);
+                    BContext.Accounts.Single(a => a.Id == withdraw.AccountId).Balance -= withdraw.Amount;
+                    BContext.SaveChanges();
+                }
             }
         }
 
@@ -147,6 +150,12 @@ namespace BankSystem.Repository
         public void RemoveClient(int Id)
         {
             BContext.Clients.Find(Id).Active = false;
+            BContext.SaveChanges();
+        }
+
+        public void LockUnlockAccount(int Id)
+        {
+            BContext.Accounts.Find(Id).isLocked = !BContext.Accounts.Find(Id).isLocked;
             BContext.SaveChanges();
         }
     }

@@ -16,6 +16,9 @@ namespace BankSystem.Models
 
         public bool Active { get; set; }
 
+        [Display(Name="Is Locked")]
+        public bool isLocked { get; set; }
+
         [ForeignKey("Client")]
         public int ClientId { get; set; }
 
@@ -30,6 +33,7 @@ namespace BankSystem.Models
         public Account()
         {
             this.Active = true;
+            this.isLocked = false;
         }
     }
 }

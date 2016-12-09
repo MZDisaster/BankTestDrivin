@@ -28,5 +28,6 @@ namespace BankSystem.Repository
         void RemoveAccount(Account account);
         void AddClient(Client client);
         HistoryModel History(int Id);
+        void LockUnlockAccount(int Id);
     }
 }

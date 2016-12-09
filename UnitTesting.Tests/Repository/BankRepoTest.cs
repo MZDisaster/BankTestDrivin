@@ -231,5 +231,19 @@ namespace BankSystem.Tests.Repository
             Assert.AreEqual(result3, 1);
             Assert.AreEqual(result4, 1);
         }
+
+        [TestMethod]
+        public void lock_should_lock_withdraw()
+        {
+            var context = new TestBankContext();
+            context.Accounts.AddRange(ObjectCreator.Accounts1());
+
+            var Repo = new WorkingBankRepo(context);
+            Repo.LockUnlockAccount(1);
+
+            var result = Repo.GetAccount(1);
+
+            Assert.IsTrue(result.isLocked);
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<OrderedTest name="orderedtest1" storage="c:\users\elev\source\repos\unittesting\unittesting.tests\orderedtest1.orderedtest" id="288cb818-8b9c-4ca9-a987-121b9760d158" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<OrderedTest name="homecontrollertest" storage="c:\users\elev\source\repos\unittesting\unittesting.tests\homecontrollertest.orderedtest" id="288cb818-8b9c-4ca9-a987-121b9760d158" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <TestLinks>
     <TestLink id="a57d7c9c-19db-2585-5873-00da9d3b4f0a" name="Index_Returning_All_Clients" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="7e030dea-7a5d-85e3-dc70-bdf71da609c7" name="Accounts_returning_all_active_accounts" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -11,5 +11,6 @@
     <TestLink id="3cbae1b4-bc1a-aa81-f86f-2e43617fb116" name="History_contains_history" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="81046c5b-51cd-edef-aa62-0f98fa8ff764" name="About" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="4b07840c-8dc0-5a71-befd-2c965c540028" name="Contact" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="6359d60c-d26d-0554-f693-602bbc7598f7" name="Lock_locks_account_history" storage="bin\debug\unittesting.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   </TestLinks>
 </OrderedTest>
